@@ -5,9 +5,9 @@ import { NavItem } from "../shared/NavItem";
 import { BtnLink } from "../shared/BtnLink";
 
 export const navItems = [
-  { href: "/", text: "Inicio" },
-  { href: "#features", text: "Características" },
-  { href: "#about-us", text: "Acerca De" },
+  { href: "#", text: "Home" },
+  { href: "#features", text: "Features" },
+  { href: "#about", text: "About" },
 ];
 
 export const Navbar = () => {
