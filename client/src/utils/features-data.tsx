@@ -2,18 +2,18 @@ import { MousePointerClick, Sparkles, ShieldCheck } from "lucide-react"
 
 export const features = [
   {
-    title: "Facilidad de uso",
-    description: "Convierte en pocos clics, sin complicaciones ni pasos extra.",
+    title: "Ease of Use",
+    description: "Convert in just a few clicks, no hassle or extra steps.",
     icon: <MousePointerClick className="w-6 h-6" />,
   },
   {
-    title: "Máxima calidad",
-    description: "Disfruta tus audios y videos con la mejor resolución y nitidez.",
+    title: "Maximum Quality",
+    description: "Enjoy your audio and video with the best resolution and clarity.",
     icon: <Sparkles className="w-6 h-6" />,
   },
   {
-    title: "Seguridad garantizada",
-    description: "Convierte confiado: sin registros, sin riesgos y con privacidad.",
+    title: "Guaranteed Security",
+    description: "Convert with confidence: no sign-ups, no risks, and full privacy.",
     icon: <ShieldCheck className="w-6 h-6" />,
   },
 ]
