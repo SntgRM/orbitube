@@ -2,7 +2,7 @@ import { Container } from "../shared/Container"
 import { Title } from "../shared/Title"
 import { Paragraph } from "../shared/Paragraph"
 import { Github } from "lucide-react"
-import AppPreview from "/assets/screenshots/app-preview.png"
+import AppPreview from "/assets/screenshots/app-preview.webp"
 
 const logos = ["python", "fastapi", "typescript", "react"]
 
