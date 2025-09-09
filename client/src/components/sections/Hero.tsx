@@ -1,8 +1,7 @@
-import { Button } from "../shared/Button"
 import { Container } from "../shared/Container"
 import { Paragraph } from "../shared/Paragraph"
 import { Link, ChevronDown, Zap, Crown } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export const Hero = () => {
   const [selectedFormat, setSelectedFormat] = useState("mp3-fast")
@@ -20,6 +19,23 @@ export const Hero = () => {
   }
 
   const selectedFormatData = formats.find((f) => f.value === selectedFormat)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      if (!target.closest(".format-dropdown")) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    if (isDropdownOpen) {
+      document.addEventListener("click", handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside)
+    }
+  }, [isDropdownOpen])
 
   return (
     <section className="relative pt-20 lg:pt-24" id="hero">
@@ -73,7 +89,7 @@ export const Hero = () => {
         >
           <h1 className="text-heading-1 text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl font-bold">
             Convert your videos to MP3 - MP4 with
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 ml-2">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#438bff] via-[#3152bd] to-[#18357a] ml-2">
               OrbiTube{" "}
             </span>
           </h1>
@@ -87,23 +103,27 @@ export const Hero = () => {
                 action="#"
                 className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3
                           shadow-lg shadow-box-shadow border border-box-border
-                          bg-box-bg rounded-full ease-linear focus-within:bg-body
-                          focus-within:border-primary"
+                          bg-box-bg rounded-full ease-linear transition-all duration-300
+                          focus-within:bg-body focus-within:border-violet-400 
+                          focus-within:shadow-xl focus-within:shadow-violet-400/20
+                          hover:border-gray-300 hover:shadow-xl"
               >
                 <span className="min-w-max pr-2 border-r border-box-border">
-                  <Link className="w-5 h-5" />
+                  <Link className="w-5 h-5 text-gray-400 transition-colors duration-200 group-focus-within:text-violet-400" />
                 </span>
                 <input
                   type="url"
                   placeholder="https://www.youtube.com/watch?v=..."
-                  className="flex-1 py-3 outline-none bg-transparent"
+                  className="flex-1 py-3 outline-none bg-transparent text-sm sm:text-base
+                            placeholder:text-gray-500 placeholder:text-sm sm:placeholder:text-base
+                            focus:placeholder:text-gray-400 transition-colors duration-200"
                 />
               </form>
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-md">
-            <div className="relative">
+          <div className="mt-6 flex flex-row sm:flex-row gap-4 items-center justify-center w-full max-w-md">
+            <div className="relative format-dropdown">
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -148,10 +168,17 @@ export const Hero = () => {
                 </div>
               )}
             </div>
-
-            <Button onClick={handleConvert} className="text-white font-semibold hover:bg-violet-700 transition-colors">
+            <button
+              onClick={handleConvert}
+              className="px-8 py-3 font-medium rounded-lg shadow-md text-white
+                        bg-gradient-to-tr from-[#193fbf] to-[#131f3a]
+                        hover:shadow-lg hover:scale-[1.02]
+                        active:scale-[0.98] focus:outline-none
+                        focus:ring-2 focus:ring-blue-600 transition-all duration-200"
+            >
               Convert
-            </Button>
+            </button>
+
           </div>
         </div>
       </Container>
