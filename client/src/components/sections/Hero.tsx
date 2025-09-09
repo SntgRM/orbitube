@@ -1,47 +1,85 @@
-"use client"
-
 import { Button } from "../shared/Button"
 import { Container } from "../shared/Container"
 import { Paragraph } from "../shared/Paragraph"
-import { Youtube, ChevronDown } from "lucide-react"
+import { Link, ChevronDown, Zap, Crown } from "lucide-react"
 import { useState } from "react"
 
 export const Hero = () => {
-  const [selectedFormat, setSelectedFormat] = useState("mp3")
+  const [selectedFormat, setSelectedFormat] = useState("mp3-fast")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   const formats = [
-    { value: "mp3", label: "MP3" },
-    { value: "mp3-hd", label: "MP3 HD" },
-    { value: "mp4", label: "MP4" },
-    { value: "mp4-hd", label: "MP4 HD" },
+    { value: "mp3-fast", label: "MP3 Fast", icon: Zap },
+    { value: "mp3-hd", label: "MP3 HD", icon: Crown },
+    { value: "mp4-fast", label: "MP4 Fast", icon: Zap },
+    { value: "mp4-hd", label: "MP4 HD", icon: Crown },
   ]
 
+  const handleConvert = () => {
+    console.log("Converting with format:", selectedFormat)
+  }
+
+  const selectedFormatData = formats.find((f) => f.value === selectedFormat)
+
   return (
-    <section className="relative pt-32 lg:pt-36">
+    <section className="relative pt-20 lg:pt-24" id="hero">
       <Container className="flex flex-col lg:flex-row gap-10 lg:gap-12">
-        <div className="absolute w-full lg:w-1/2 inset-y-0 lg:right-0">
-          <span
-            className="absolute -left-6 md:left-4 top-24 lg:top-28 w-24 h-24 rotate-90 
-                        skew-x-12 rounded-3xl bg-gradient-to-r from-blue-600 to-violet-600
-                        blur-xl opacity-60 lg:opacity-95 lg:block hidden"
-          ></span>
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+          <div className="relative">
+            <div
+              className="absolute w-96 h-64 border border-blue-500/10 rounded-full 
+                         transform rotate-12 -skew-y-12 animate-orbital-slow"
+              style={{
+                borderStyle: "dashed",
+                borderWidth: "1px",
+              }}
+            />
+
+            <div
+              className="relative w-80 h-52 border border-blue-400/20 rounded-full 
+                         transform rotate-12 -skew-y-12 animate-orbital-medium"
+            >
+              <div
+                className="absolute top-0 left-1/2 w-3 h-3 -translate-x-1/2 -translate-y-1/2
+                          rounded-full bg-gradient-to-r from-blue-400/60 to-violet-400/60 
+                          shadow-sm shadow-blue-400/30 animate-pulse-subtle"
+              />
+
+              <div
+                className="absolute bottom-0 right-1/4 w-2 h-2 translate-x-1/2 translate-y-1/2
+                          rounded-full bg-gradient-to-r from-violet-400/40 to-blue-400/40 
+                          shadow-sm shadow-violet-400/20"
+                style={{
+                  animationDelay: "10s",
+                }}
+              />
+            </div>
+
+            <div
+              className="absolute top-1/2 left-1/2 w-48 h-32 border border-violet-400/15 rounded-full 
+                         transform -translate-x-1/2 -translate-y-1/2 rotate-12 -skew-y-12 animate-orbital-fast"
+            >
+              <div
+                className="absolute top-1/4 right-0 w-1.5 h-1.5 translate-x-1/2 -translate-y-1/2
+                          rounded-full bg-violet-300/50 shadow-sm shadow-violet-300/20"
+              />
+            </div>
+          </div>
         </div>
 
         <div
           className="relative flex flex-col items-center text-center
-                      max-w-3xl mx-auto w-full"
+                      max-w-3xl mx-auto w-full z-10"
         >
           <h1 className="text-heading-1 text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl font-bold">
-            Convert your videos to MP3 - MP4 with 
+            Convert your videos to MP3 - MP4 with
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 ml-2">
               OrbiTube{" "}
             </span>
           </h1>
           <Paragraph className="mt-8">
-            Our AI SaaS platform seamlessly integrates with your existing workflows to deliver real‑time insights,
-            intelligent automation, and data‑driven decision-making. Experience a future where your business runs
-            smarter, faster, and more efficiently.
+            Fast, secure, and hassle-free: just
+            paste the link, choose your format, and download your favorite content to enjoy anytime, anywhere.
           </Paragraph>
           <div className="mt-10 w-full flex max-w-2xl mx-auto lg:mx-0">
             <div className="flex sm:flex-row flex-col gap-5 w-full">
@@ -53,55 +91,67 @@ export const Hero = () => {
                           focus-within:border-primary"
               >
                 <span className="min-w-max pr-2 border-r border-box-border">
-                  <Youtube className="w-5 h-5" />
+                  <Link className="w-5 h-5" />
                 </span>
                 <input
                   type="url"
-                  placeholder="https://www.youtube.com/watch?v="
+                  placeholder="https://www.youtube.com/watch?v=..."
                   className="flex-1 py-3 outline-none bg-transparent"
                 />
-
-                <div className="relative min-w-max">
-                  <button
-                    type="button"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex items-center gap-2 px-3 py-2 text-sm font-medium
-                             border-l border-box-border hover:bg-body/50 transition-colors"
-                  >
-                    {formats.find((f) => f.value === selectedFormat)?.label}
-                    <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`} />
-                  </button>
-
-                  {isDropdownOpen && (
-                    <div
-                      className="absolute right-0 top-full mt-2 w-24 bg-box-bg border border-box-border
-                                  rounded-lg shadow-lg shadow-box-shadow z-10"
-                    >
-                      {formats.map((format) => (
-                        <button
-                          key={format.value}
-                          type="button"
-                          onClick={() => {
-                            setSelectedFormat(format.value)
-                            setIsDropdownOpen(false)
-                          }}
-                          className={`w-full px-3 py-2 text-sm text-left hover:bg-body/50 transition-colors
-                                    first:rounded-t-lg last:rounded-b-lg ${
-                                      selectedFormat === format.value ? "bg-primary/10 text-primary" : ""
-                                    }`}
-                        >
-                          {format.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <Button className="min-w-max text-white">
-                  <span className="relative z-[5]">Download</span>
-                </Button>
               </form>
             </div>
+          </div>
+
+          <div className="mt-6 flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-md">
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center justify-between gap-3 px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg shadow-lg hover:bg-gray-800 hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 min-w-[160px] transition-all duration-200 hover:shadow-xl"
+              >
+                <div className="flex items-center gap-2">
+                  {selectedFormatData && <selectedFormatData.icon className="w-4 h-4 text-violet-400" />}
+                  <span className="text-sm font-medium text-white">{selectedFormatData?.label}</span>
+                </div>
+                <ChevronDown
+                  className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 mb-2 w-full bg-gray-900 border border-gray-700 rounded-lg shadow-2xl z-50 overflow-hidden animate-in slide-in-from-top-2 duration-200">
+                  {formats.map((format, index) => {
+                    const Icon = format.icon
+                    return (
+                      <button
+                        key={format.value}
+                        type="button"
+                        onClick={() => {
+                          setSelectedFormat(format.value)
+                          setIsDropdownOpen(false)
+                        }}
+                        className={`w-full px-4 py-3 text-left text-sm flex items-center gap-2 hover:bg-gray-800 transition-all duration-150 ${
+                          selectedFormat === format.value
+                            ? "bg-violet-900/50 text-violet-300 border-l-2 border-violet-500"
+                            : "text-gray-300 hover:text-white"
+                        } ${index === 0 ? "rounded-t-lg" : ""} ${index === formats.length - 1 ? "rounded-b-lg" : ""}`}
+                      >
+                        <Icon
+                          className={`w-4 h-4 ${selectedFormat === format.value ? "text-violet-400" : "text-gray-500"}`}
+                        />
+                        <span className="font-medium">{format.label}</span>
+                        {format.value.includes("fast") && <span className="ml-auto text-xs text-gray-500">Fast</span>}
+                        {format.value.includes("hd") && <span className="ml-auto text-xs text-yellow-500">HD</span>}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+
+            <Button onClick={handleConvert} className="text-white font-semibold hover:bg-violet-700 transition-colors">
+              Convert
+            </Button>
           </div>
         </div>
       </Container>
