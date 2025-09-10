@@ -1,22 +1,65 @@
 import { Container } from "../shared/Container"
 import { Paragraph } from "../shared/Paragraph"
-import { Link, ChevronDown, Zap, Crown } from "lucide-react"
+import { Link, ChevronDown, Music, Video, Orbit } from "lucide-react"
 import { useState, useEffect } from "react"
+import { convertVideo } from "../../services/api";
 
 export const Hero = () => {
-  const [selectedFormat, setSelectedFormat] = useState("mp3-fast")
+  const [selectedFormat, setSelectedFormat] = useState("mp3-hd")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [inputUrl, setInputUrl] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
+  const [messageKey, setMessageKey] = useState(0)
 
   const formats = [
-    { value: "mp3-fast", label: "MP3 Fast", icon: Zap },
-    { value: "mp3-hd", label: "MP3 HD", icon: Crown },
-    { value: "mp4-fast", label: "MP4 Fast", icon: Zap },
-    { value: "mp4-hd", label: "MP4 HD", icon: Crown },
+    { value: "mp3-hd", label: "MP3", icon: Music },
+    { value: "mp4-hd", label: "MP4", icon: Video },
   ]
 
-  const handleConvert = () => {
-    console.log("Converting with format:", selectedFormat)
+  const loadingMessages = [
+    "Please wait patiently, we're processing your video...",
+    "The download won't take much longer...",
+    "For the best quality conversion, please wait a bit more...",
+    "Almost there! Your file is being optimized...",
+    "Just a few more seconds for perfect results...",
+  ]
+
+  const handleConvert = async () => {
+    if (!inputUrl) {
+      alert("Introduce una URL válida")
+      return
+    }
+
+    const [format] = selectedFormat.split("-") as ["mp3" | "mp4"]
+    const quality = "hd"
+
+    try {
+      setIsLoading(true)
+      setCurrentMessageIndex(0)
+      setMessageKey(0)
+      await convertVideo(inputUrl, format, quality)
+    } catch (err) {
+      console.error(err)
+      alert("Hubo un error al convertir el video.")
+    } finally {
+      setIsLoading(false)
+    }
   }
+
+  useEffect(() => {
+    if (!isLoading) return
+
+    const messageInterval = setInterval(() => {
+      setCurrentMessageIndex((prev) => {
+        const nextIndex = (prev + 1) % loadingMessages.length
+        setMessageKey((prevKey) => prevKey + 1)
+        return nextIndex
+      })
+    }, 5000)
+
+    return () => clearInterval(messageInterval)
+  }, [isLoading, loadingMessages.length])
 
   const selectedFormatData = formats.find((f) => f.value === selectedFormat)
 
@@ -94,8 +137,8 @@ export const Hero = () => {
             </span>
           </h1>
           <Paragraph className="mt-8">
-            Fast, secure, and hassle-free: just
-            paste the link, choose your format, and download your favorite content to enjoy anytime, anywhere.
+            Secure, and hassle-free: just paste the link, choose your format, and download your favorite content
+            to enjoy anytime, anywhere.
           </Paragraph>
           <div className="mt-10 w-full flex max-w-2xl mx-auto lg:mx-0">
             <div className="flex sm:flex-row flex-col gap-5 w-full">
@@ -113,10 +156,14 @@ export const Hero = () => {
                 </span>
                 <input
                   type="url"
-                  placeholder="https://www.youtube.com/watch?v=..."
+                  value={inputUrl}
+                  onChange={(e) => setInputUrl(e.target.value)}
+                  placeholder="Paste the URL here"
+                  disabled={isLoading}
                   className="flex-1 py-3 outline-none bg-transparent text-sm sm:text-base
                             placeholder:text-gray-500 placeholder:text-sm sm:placeholder:text-base
-                            focus:placeholder:text-gray-400 transition-colors duration-200"
+                            focus:placeholder:text-gray-400 transition-colors duration-200
+                            disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </form>
             </div>
@@ -127,7 +174,8 @@ export const Hero = () => {
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center justify-between gap-3 px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg shadow-lg hover:bg-gray-800 hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 min-w-[160px] transition-all duration-200 hover:shadow-xl"
+                disabled={isLoading}
+                className="flex items-center justify-between gap-3 px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg shadow-lg hover:bg-gray-800 hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 min-w-[160px] transition-all duration-200 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:border-gray-700"
               >
                 <div className="flex items-center gap-2">
                   {selectedFormatData && <selectedFormatData.icon className="w-4 h-4 text-violet-400" />}
@@ -138,7 +186,7 @@ export const Hero = () => {
                 />
               </button>
 
-              {isDropdownOpen && (
+              {isDropdownOpen && !isLoading && (
                 <div className="absolute top-full left-0 mb-2 w-full bg-gray-900 border border-gray-700 rounded-lg shadow-2xl z-50 overflow-hidden animate-in slide-in-from-top-2 duration-200">
                   {formats.map((format, index) => {
                     const Icon = format.icon
@@ -160,7 +208,6 @@ export const Hero = () => {
                           className={`w-4 h-4 ${selectedFormat === format.value ? "text-violet-400" : "text-gray-500"}`}
                         />
                         <span className="font-medium">{format.label}</span>
-                        {format.value.includes("fast") && <span className="ml-auto text-xs text-gray-500">Fast</span>}
                         {format.value.includes("hd") && <span className="ml-auto text-xs text-yellow-500">HD</span>}
                       </button>
                     )
@@ -170,16 +217,36 @@ export const Hero = () => {
             </div>
             <button
               onClick={handleConvert}
+              disabled={isLoading}
               className="px-8 py-3 font-medium rounded-lg shadow-md text-white
                         bg-gradient-to-tr from-[#193fbf] to-[#131f3a]
                         hover:shadow-lg hover:scale-[1.02]
                         active:scale-[0.98] focus:outline-none
-                        focus:ring-2 focus:ring-blue-600 transition-all duration-200"
+                        focus:ring-2 focus:ring-blue-600 transition-all duration-200
+                        disabled:opacity-50 disabled:cursor-not-allowed 
+                        disabled:hover:scale-100 disabled:hover:shadow-md
+                        flex items-center justify-center gap-2 min-w-[120px]"
             >
-              Convert
+              {isLoading ? (
+                <>
+                  <Orbit className="w-4 h-4 animate-spin" />
+                  <span>Converting...</span>
+                </>
+              ) : (
+                "Convert"
+              )}
             </button>
-
           </div>
+
+          {isLoading && (
+            <div className="mt-6 w-full max-w-md">
+              <div className="loading-message-container">
+                <div key={messageKey} className="loading-message animate-message-fade">
+                  {loadingMessages[currentMessageIndex]}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </Container>
     </section>
