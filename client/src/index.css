@@ -117,6 +117,17 @@ body {
   }
 }
 
+@keyframes message-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .animate-orbital-slow {
   animation: orbital-slow 40s linear infinite;
 }
@@ -131,4 +142,41 @@ body {
 
 .animate-pulse-subtle {
   animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+.loading-message-container {
+  position: relative;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(124, 58, 237, 0.2));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  color: rgb(196, 181, 253);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06), inset 0 1px 0
+    rgba(255, 255, 255, 0.1);
+}
+
+.animate-message-fade {
+  animation: message-fade-in 0.5s ease-out forwards;
+}
+
+.loading-message:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.25));
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-1px);
+  transition: all 0.2s ease-out;
 }
