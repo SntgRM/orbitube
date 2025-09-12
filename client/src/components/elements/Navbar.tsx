@@ -63,15 +63,15 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "backdrop-blur-md bg-transparent ring-1 ring-white/10 rounded-2xl mx-4 mt-4" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled ? "backdrop-blur-md bg-transparent ring-1 ring-white/10 rounded-2xl mx-4 mt-2" : "bg-transparent"
       }`}
     >
-      <Container>
+      <Container> 
         <nav className="w-full flex justify-between items-center relative py-4">
           <div className="min-w-max inline-flex relative">
             <a href="/" className="relative flex items-center gap-3">
-              <img src={logo || "/placeholder.svg"} alt="EdgeAI Logo" className="w-10 h-10" />
+              <img src={logo || "/placeholder.svg"} alt="OrbiTube Logo" className="w-10 h-10" />
               <div className="inline-flex text-lg font-semibold text-heading-1">OrbiTube</div>
             </a>
           </div>
