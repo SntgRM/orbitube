@@ -1,5 +1,5 @@
 import { features } from "../../utils/features-data";
-import { Feature } from "../cards/Feature";
+import { Feature } from "../cards/FeatureCard";
 import { Container } from "../shared/Container";
 import { Title } from "../shared/Title";
 
