@@ -2,7 +2,7 @@ import { Container } from "../shared/Container"
 import { Paragraph } from "../shared/Paragraph"
 import { Link, ChevronDown, Music, Video, Orbit } from "lucide-react"
 import { useState, useEffect } from "react"
-import { convertVideo } from "../../services/api";
+import { convertVideo } from "../../services/api"
 
 export const Hero = () => {
   const [selectedFormat, setSelectedFormat] = useState("mp3-hd")
@@ -81,8 +81,8 @@ export const Hero = () => {
   }, [isDropdownOpen])
 
   return (
-    <section className="relative pt-20 lg:pt-24" id="hero">
-      <Container className="flex flex-col lg:flex-row gap-10 lg:gap-12">
+    <section className="relative h-screen flex items-center justify-center" id="hero">
+      <Container className="flex flex-col lg:flex-row gap-10 lg:gap-12 w-full">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
           <div className="relative">
             <div
@@ -137,8 +137,8 @@ export const Hero = () => {
             </span>
           </h1>
           <Paragraph className="mt-8">
-            Secure, and hassle-free: just paste the link, choose your format, and download your favorite content
-            to enjoy anytime, anywhere.
+            Secure, and hassle-free: just paste the link, choose your format, and download your favorite content to
+            enjoy anytime, anywhere.
           </Paragraph>
           <div className="mt-10 w-full flex max-w-2xl mx-auto lg:mx-0">
             <div className="flex sm:flex-row flex-col gap-5 w-full">
