@@ -185,16 +185,20 @@ export const Navbar = () => {
 
           <div
             className={`lg:hidden flex flex-col w-auto
-                      absolute top-full right-0 
-                      transition-all duration-300 ease-in-out
-                      ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}
-                      bg-gray-900/95 backdrop-blur-md
-                      border border-gray-700 rounded-2xl mt-2 min-w-[200px]`}
+                        absolute top-full right-0 
+                        transition-all duration-300 ease-in-out
+                        ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}
+                        bg-gray-900 border border-gray-700 rounded-2xl mt-2 min-w-[220px] shadow-xl`}
           >
-            <ul className="px-6 pt-6 pb-6 flex flex-col gap-y-4 text-lg text-heading-2">
+            <ul className="flex flex-col p-2 text-sm font-bold text-heading-2">
               {navItems.map((item, key) => (
                 <li key={key} onClick={handleNavItemClick}>
-                  <NavItem href={item.href} text={t(item.text)} />
+                  <a
+                    href={item.href}
+                    className="block w-full px-6 py-3 hover:bg-gray-800 rounded-lg transition-colors"
+                  >
+                    {t(item.text)}
+                  </a>
                 </li>
               ))}
             </ul>
