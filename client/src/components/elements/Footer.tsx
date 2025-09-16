@@ -14,7 +14,7 @@ export const Footer = () => {
               <h3 className="text-white font-semibold">OrbiTube</h3>
             </div>
             <p className="text-sm">
-              OrbiTube is a fast and secure YouTube video converter. Download your favorite videos in MP3 or MP4 format with the best quality — always free, simple, and without complications.
+              OrbiTube is a secure YouTube video converter. Download your favorite videos in MP3 or MP4 format with the best quality — always free, simple, and without complications.
             </p>
           </div>
 
