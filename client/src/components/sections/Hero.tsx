@@ -81,7 +81,7 @@ export const Hero = () => {
   }, [isDropdownOpen])
 
   return (
-    <section className="relative h-screen flex items-center justify-center" id="hero">
+    <section className="relative h-screen flex items-center justify-center" id="home">
       <Container className="flex flex-col lg:flex-row gap-10 lg:gap-12 w-full">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
           <div className="relative">
@@ -187,7 +187,7 @@ export const Hero = () => {
               </button>
 
               {isDropdownOpen && !isLoading && (
-                <div className="absolute top-full left-0 mb-2 w-full bg-gray-900 border border-gray-700 rounded-lg shadow-2xl z-50 overflow-hidden animate-in slide-in-from-top-2 duration-200">
+                <div className="absolute top-full left-0 mt-2 mb-2 w-full bg-gray-900 border border-gray-700 rounded-lg shadow-2xl z-50 overflow-hidden animate-in slide-in-from-top-2 duration-200">
                   {formats.map((format, index) => {
                     const Icon = format.icon
                     return (
