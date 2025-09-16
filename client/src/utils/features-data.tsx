@@ -1,19 +1,24 @@
 import { MousePointerClick, Sparkles, ShieldCheck } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
-export const features = [
-  {
-    title: "Ease of Use",
-    description: "Convert in just a few clicks, no hassle or extra steps.",
-    icon: <MousePointerClick className="w-6 h-6" />,
-  },
-  {
-    title: "Maximum Quality",
-    description: "Enjoy your audio and video with the best resolution and clarity.",
-    icon: <Sparkles className="w-6 h-6" />,
-  },
-  {
-    title: "Guaranteed Security",
-    description: "Convert with confidence: no sign-ups, no risks, and full privacy.",
-    icon: <ShieldCheck className="w-6 h-6" />,
-  },
-]
+export const useFeaturesData = () => {
+  const { t } = useTranslation()
+
+  return [
+    {
+      title: t("features.easeTitle"),
+      description: t("features.easeDescription"),
+      icon: <MousePointerClick className="w-6 h-6" />,
+    },
+    {
+      title: t("features.qualityTitle"),
+      description: t("features.qualityDescription"),
+      icon: <Sparkles className="w-6 h-6" />,
+    },
+    {
+      title: t("features.securityTitle"),
+      description: t("features.securityDescription"),
+      icon: <ShieldCheck className="w-6 h-6" />,
+    },
+  ]
+}
