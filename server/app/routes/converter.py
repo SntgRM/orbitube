@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Query, HTTPException
 from fastapi.responses import FileResponse
 from starlette.background import BackgroundTask
-from app.services.yt_converter import downloadVideo
+from app.services.yt_converter import download_video
 import os
 
 router = APIRouter(prefix="/convert", tags=["Converter"])
@@ -13,7 +13,7 @@ def convert(
 ):
     
     try:
-        filepath, title = downloadVideo(url, format)
+        filepath, title = download_video(url, format)
         ext = "mp3" if format == "mp3" else "mp4"
         filename = f"{title}.{ext}"
         print(f"DEBUG: filepath={filepath}, filename={filename}")
