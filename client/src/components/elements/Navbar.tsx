@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next"
 import { ChevronDown, Menu, X } from "lucide-react"
 
 export const navItems = [
-  { href: "#", text: "home" },
+  { href: "#home", text: "home" },
   { href: "#features", text: "features" },
   { href: "#about", text: "about" },
 ]
@@ -135,7 +135,18 @@ export const Navbar = () => {
             <ul className="flex flex-row gap-x-3 text-lg text-heading-2 justify-center items-center flex-1">
               {navItems.map((item, key) => (
                 <li key={key}>
-                  <NavItem href={item.href} text={t(item.text)} />
+                  <NavItem
+                    href="#"
+                    text={t(item.text)}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      const section = document.querySelector(item.href)
+                      if (section) {
+                        section.scrollIntoView({ behavior: "smooth" })
+                      }
+                      handleNavItemClick()
+                    }}
+                  />
                 </li>
               ))}
             </ul>
