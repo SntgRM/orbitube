@@ -2,9 +2,11 @@ import { Container } from "../shared/Container"
 import { Paragraph } from "../shared/Paragraph"
 import { Link, ChevronDown, Music, Video, Orbit } from "lucide-react"
 import { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { convertVideo } from "../../services/api"
 
 export const Hero = () => {
+  const { t } = useTranslation()
   const [selectedFormat, setSelectedFormat] = useState("mp3-hd")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [inputUrl, setInputUrl] = useState("")
@@ -18,16 +20,16 @@ export const Hero = () => {
   ]
 
   const loadingMessages = [
-    "Please wait patiently, we're processing your video...",
-    "The download won't take much longer...",
-    "For the best quality conversion, please wait a bit more...",
-    "Almost there! Your file is being optimized...",
-    "Just a few more seconds for perfect results...",
+    t("loading1"),
+    t("loading2"),
+    t("loading3"),
+    t("loading4"),
+    t("loading5"),
   ]
 
   const handleConvert = async () => {
     if (!inputUrl) {
-      alert("Introduce una URL válida")
+      alert(t("errorInvalidUrl"))
       return
     }
 
@@ -41,7 +43,7 @@ export const Hero = () => {
       await convertVideo(inputUrl, format, quality)
     } catch (err) {
       console.error(err)
-      alert("Hubo un error al convertir el video.")
+      alert(t("errorConversion"))
     } finally {
       setIsLoading(false)
     }
@@ -131,14 +133,13 @@ export const Hero = () => {
                       max-w-3xl mx-auto w-full z-10"
         >
           <h1 className="text-heading-1 text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl font-bold">
-            Convert your videos to MP3 - MP4 with
+            {t("heroTitle")}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#438bff] via-[#3152bd] to-[#18357a] ml-2">
               OrbiTube{" "}
             </span>
           </h1>
           <Paragraph className="mt-8">
-            Secure, and hassle-free: just paste the link, choose your format, and download your favorite content to
-            enjoy anytime, anywhere.
+            {t("heroSubtitle")}
           </Paragraph>
           <div className="mt-10 w-full flex max-w-2xl mx-auto lg:mx-0">
             <div className="flex sm:flex-row flex-col gap-5 w-full">
@@ -158,7 +159,7 @@ export const Hero = () => {
                   type="url"
                   value={inputUrl}
                   onChange={(e) => setInputUrl(e.target.value)}
-                  placeholder="Paste the URL here"
+                  placeholder={t("inputPlaceholder")}
                   disabled={isLoading}
                   className="flex-1 py-3 outline-none bg-transparent text-sm sm:text-base
                             placeholder:text-gray-500 placeholder:text-sm sm:placeholder:text-base
@@ -230,10 +231,10 @@ export const Hero = () => {
               {isLoading ? (
                 <>
                   <Orbit className="w-4 h-4 animate-spin" />
-                  <span>Converting...</span>
+                  <span>{t("converting")}</span>
                 </>
               ) : (
-                "Convert"
+                t("convertButton")
               )}
             </button>
           </div>
