@@ -8,9 +8,9 @@ import { useTranslation } from "react-i18next"
 import { ChevronDown, Menu, X } from "lucide-react"
 
 export const navItems = [
-  { href: "#home", text: "home" },
-  { href: "#features", text: "features" },
-  { href: "#about", text: "about" },
+  { href: "#home", text: "homeLink" },
+  { href: "#features", text: "featuresLink" },
+  { href: "#about", text: "aboutLink" },
 ]
 
 export const Navbar = () => {
