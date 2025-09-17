@@ -7,7 +7,7 @@
   --color-box: 42, 42, 58;
   --heading-1: 255, 255, 255;
   --heading-2: 243, 244, 246;
-  --heading-3: 209, 213, 219;
+  --heading-3: 200, 210, 225;
 }
 
 @layer utilities {
