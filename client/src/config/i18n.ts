@@ -24,11 +24,14 @@ const resources: Record<string, { translation: Record<string, any> }> = {
       features: {
         sectionTitle: "Features",
         easeTitle: "Ease of Use",
-        easeDescription: "Convert in just a few clicks, no hassle or extra steps.",
+        easeDescription:
+          "Convert in just a few clicks, with no hassle or unnecessary steps. The intuitive interface is designed so anyone, even without technical experience, can quickly and efficiently convert files from any device.",
         qualityTitle: "Maximum Quality",
-        qualityDescription: "Enjoy your audio and video with the best resolution and clarity.",
+        qualityDescription:
+          "Enjoy your audio and video with the best resolution and clarity. Our system automatically optimizes format and quality to preserve every detail of the original content, delivering a professional-level visual and audio experience.",
         securityTitle: "Guaranteed Security",
-        securityDescription: "Convert with confidence: no sign-ups, no risks, and full privacy."
+        securityDescription:
+          "Convert with confidence: no sign-ups, no risks, and complete privacy. All processes are handled securely and locally, avoiding unnecessary data storage and protecting your personal information at all times."
       },
 
       about: {
@@ -73,11 +76,14 @@ const resources: Record<string, { translation: Record<string, any> }> = {
       features: {
         sectionTitle: "Características",
         easeTitle: "Facilidad de uso",
-        easeDescription: "Convierte en solo unos clics, sin complicaciones ni pasos extra.",
+        easeDescription:
+          "Convierte en solo unos clics, sin complicaciones ni pasos extra. La interfaz intuitiva está diseñada para que cualquier persona, incluso sin experiencia técnica, pueda realizar conversiones de forma rápida y eficiente desde cualquier dispositivo.",
         qualityTitle: "Máxima calidad",
-        qualityDescription: "Disfruta de tu audio y video con la mejor resolución y claridad.",
+        qualityDescription:
+          "Disfruta de tu audio y video con la mejor resolución y claridad. Nuestro sistema optimiza automáticamente el formato y la calidad para conservar cada detalle del contenido original, ofreciendo una experiencia visual y auditiva profesional.",
         securityTitle: "Seguridad garantizada",
-        securityDescription: "Convierte con confianza: sin registros, sin riesgos y con total privacidad."
+        securityDescription:
+          "Convierte con confianza: sin registros, sin riesgos y con total privacidad. Todos los procesos se realizan de manera segura y local, evitando el almacenamiento innecesario de datos y protegiendo tu información personal en todo momento."
       },
 
       about: {
