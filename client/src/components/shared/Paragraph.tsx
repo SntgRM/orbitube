@@ -1,6 +1,7 @@
 interface ParagraphProps {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export const Paragraph = ({ children, className = "" }: ParagraphProps) => {
