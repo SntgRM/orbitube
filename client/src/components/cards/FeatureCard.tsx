@@ -4,21 +4,22 @@ interface FeatureProps {
   title: string
   description: string
   icon: React.ReactNode
+  className?: string
 }
 
-export const Feature = ({ title, description, icon }: FeatureProps) => {
+export const Feature = ({ title, description, icon, className }: FeatureProps) => {
   return (
     <div
-      className="group p-5 sm:p-6 lg:p-8 rounded-3xl border border-box-border bg-box-bg shadow-lg
-                    shadow-box-shadow relative overflow-hidden cursor-pointer
-                    transition-all duration-500 ease-out
-                    hover:scale-[1.03] hover:shadow-2xl hover:shadow-gray-500/15
-                    hover:border-gray-400/30 hover:bg-gradient-to-br hover:from-box-bg hover:to-gray-800/8
-                    before:absolute before:inset-0 before:rounded-3xl before:p-[1px] 
-                    before:bg-gradient-to-br before:from-gray-400/15 before:via-gray-300/8 before:to-transparent
-                    before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-500
-                    after:absolute after:inset-[1px] after:rounded-3xl after:bg-box-bg after:z-[-1]
-                    backdrop-blur-sm"
+      className={`group p-5 sm:p-6 lg:p-8 rounded-3xl border border-box-border bg-box-bg shadow-lg
+                  shadow-box-shadow relative overflow-hidden cursor-pointer
+                  transition-all duration-500 ease-out
+                  hover:scale-[1.03] hover:shadow-2xl hover:shadow-gray-500/15
+                  hover:border-gray-400/30 hover:bg-gradient-to-br hover:from-box-bg hover:to-gray-800/8
+                  before:absolute before:inset-0 before:rounded-3xl before:p-[1px] 
+                  before:bg-gradient-to-br before:from-gray-400/15 before:via-gray-300/8 before:to-transparent
+                  before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-500
+                  after:absolute after:inset-[1px] after:rounded-3xl after:bg-box-bg after:z-[-1]
+                  backdrop-blur-sm flex flex-col justify-between h-full ${className}`}
     >
       <div
         className="absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-white/[0.02] to-transparent 
