@@ -1,9 +1,11 @@
 import { Container } from "../shared/Container"
 import { Paragraph } from "../shared/Paragraph"
-import { Link, ChevronDown, Music, Video, Orbit } from "lucide-react"
+import { Link, ChevronDown, Music, Video, Orbit, X } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { convertVideo } from "../../services/api"
+
+type AlertType = "error" | "success" | null
 
 export const Hero = () => {
   const { t } = useTranslation()
@@ -13,6 +15,7 @@ export const Hero = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
   const [messageKey, setMessageKey] = useState(0)
+  const [alert, setAlert] = useState<{ type: AlertType; message: string } | null>(null)
 
   const formats = [
     { value: "mp3-hd", label: "MP3", icon: Music },
@@ -27,9 +30,16 @@ export const Hero = () => {
     t("loading5"),
   ]
 
+  const showAlert = (type: AlertType, message: string) => {
+    setAlert({ type, message })
+    setTimeout(() => {
+      setAlert(null)
+    }, 5000)
+  }
+
   const handleConvert = async () => {
     if (!inputUrl) {
-      alert(t("errorInvalidUrl"))
+      showAlert("error", t("errorInvalidUrl"))
       return
     }
 
@@ -43,7 +53,7 @@ export const Hero = () => {
       await convertVideo(inputUrl, format, quality)
     } catch (err) {
       console.error(err)
-      alert(t("errorConversion"))
+      showAlert("error", t("errorConversion"))
     } finally {
       setIsLoading(false)
     }
@@ -132,16 +142,42 @@ export const Hero = () => {
           className="relative flex flex-col items-center text-center
                       max-w-3xl mx-auto w-full z-10"
         >
-          <h1 className="text-heading-1 text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl font-bold">
+          {alert && (
+            <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4">
+              <div
+                className={`alert-message ${alert.type === "error" ? "alert-error" : "alert-success"} flex items-center justify-between gap-3`}
+              >
+                <span className="flex-1">{alert.message}</span>
+                <button
+                  onClick={() => setAlert(null)}
+                  className="flex-shrink-0 hover:opacity-70 transition-opacity"
+                  aria-label="Cerrar alerta"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          <h1
+            className="text-heading-1 text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl font-bold animate-fade-in-up opacity-0"
+            style={{ animationDelay: "0.1s", animationFillMode: "forwards" }}
+          >
             {t("heroTitle")}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#438bff] via-[#3152bd] to-[#18357a] ml-2">
               OrbiTube{" "}
             </span>
           </h1>
-          <Paragraph className="mt-8">
+          <Paragraph
+            className="mt-8 animate-fade-in-up opacity-0"
+            style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
+          >
             {t("heroSubtitle")}
           </Paragraph>
-          <div className="mt-10 w-full flex max-w-2xl mx-auto lg:mx-0">
+          <div
+            className="mt-10 w-full flex max-w-2xl mx-auto lg:mx-0 animate-fade-in-scale opacity-0"
+            style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
+          >
             <div className="flex sm:flex-row flex-col gap-5 w-full">
               <form
                 action="#"
@@ -170,7 +206,10 @@ export const Hero = () => {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-row sm:flex-row gap-4 items-center justify-center w-full max-w-md">
+          <div
+            className="mt-6 flex flex-row sm:flex-row gap-4 items-center justify-center w-full max-w-md animate-fade-in-up opacity-0"
+            style={{ animationDelay: "0.7s", animationFillMode: "forwards" }}
+          >
             <div className="relative format-dropdown">
               <button
                 type="button"
