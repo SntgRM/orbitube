@@ -6,6 +6,7 @@ import AppPreview from "/assets/screenshots/app-preview.webp"
 import { useTranslation } from "react-i18next"
 
 const logos = ["python", "fastapi", "typescript", "react"]
+const titleIcon = ["Python ", "FastAPI ", "TypeScript ", "React "]
 
 export const About = () => {
   const { t } = useTranslation()
@@ -13,15 +14,19 @@ export const About = () => {
   return (
     <section id="about">
       <Container className="space-y-8">
-        <div className="text-center max-w-3xl mx-auto">
+        <div
+          className="text-center max-w-3xl mx-auto animate-fade-in-up opacity-0"
+          style={{ animationDelay: "0.1s", animationFillMode: "forwards" }}
+        >
           <Title>{t("about.sectionTitle")}</Title>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4">
-            <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-              {t("about.learningTitle")}
-            </h3>
+          <div
+            className="space-y-4 animate-slide-in-left opacity-0"
+            style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
+          >
+            <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">{t("about.learningTitle")}</h3>
             <Paragraph>{t("about.paragraph1")}</Paragraph>
             <Paragraph>{t("about.paragraph2")}</Paragraph>
             <div className="flex justify-self-start mt-4">
@@ -42,7 +47,10 @@ export const About = () => {
             </div>
           </div>
 
-          <div className="flex justify-center">
+          <div
+            className="flex justify-center animate-slide-in-right opacity-0"
+            style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
+          >
             <div className="w-full max-w-2xl rounded-2xl shadow-lg overflow-hidden flex items-center justify-center p-4">
               <img
                 src={AppPreview || "/placeholder.svg"}
@@ -57,11 +65,16 @@ export const About = () => {
           {logos.map((logo, key) => (
             <div
               key={key}
-              className="p-4 sm:p-6 group overflow-hidden flex items-center justify-center"
+              className="p-4 sm:p-6 group overflow-hidden flex items-center justify-center animate-fade-in-scale opacity-0"
+              style={{
+                animationDelay: `${0.5 + key * 0.1}s`,
+                animationFillMode: "forwards",
+              }}
             >
               <img
                 src={`/assets/logos/${logo}.svg`}
                 alt={logo}
+                title={titleIcon[key]}
                 className="w-12 h-12 sm:h-16 sm:w-16 object-contain ease-linear duration-300 grayscale group-hover:!grayscale-0 group-hover:scale-110"
               />
             </div>
