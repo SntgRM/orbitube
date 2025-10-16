@@ -6,7 +6,7 @@ from threading import Lock
 _info_cache = {}
 _cache_lock = Lock()
 
-DOWNLOAD_DIR = os.environ.get("ORBITUBE_DOWNLOAD_DIR", "downloads")
+DOWNLOAD_DIR = os.environ.get("DOWNLOAD_DIR", "downloads")
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 def download_video(url: str, format: str) -> tuple[str, str]:
