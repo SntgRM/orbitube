@@ -6,7 +6,9 @@ from threading import Lock
 _info_cache = {}
 _cache_lock = Lock()
 
+COOKIE_PATH = os.environ.get("COOKIES_PATH")
 DOWNLOAD_DIR = os.environ.get("DOWNLOAD_DIR", "downloads")
+
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 def download_video(url: str, format: str) -> tuple[str, str]:
@@ -27,6 +29,7 @@ def _get_video_info(url: str) -> dict:
         "no_warnings": True,
         "skip_download": True,
         "noplaylist": True,
+        'cookiefile': COOKIE_PATH
     }
     
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
