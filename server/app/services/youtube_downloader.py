@@ -6,8 +6,11 @@ from threading import Lock
 _info_cache = {}
 _cache_lock = Lock()
 
+DOWNLOAD_DIR = os.environ.get("ORBITUBE_DOWNLOAD_DIR", "downloads")
+os.makedirs(DOWNLOAD_DIR, exist_ok=True)
+
 def download_video(url: str, format: str) -> tuple[str, str]:
-    os.makedirs("downloads", exist_ok=True)
+    os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
     if format == "mp3":
         return _download_audio_only_optimized(url)
@@ -39,7 +42,7 @@ def _download_audio_only_optimized(url: str) -> tuple[str, str]:
     title = info.get("title", "audio")
     safe_title = _sanitize_filename(title)
     
-    output_path = os.path.join("downloads", f"{safe_title}.%(ext)s")
+    output_path = os.path.join(DOWNLOAD_DIR, f"{safe_title}.%(ext)s")
     
     ydl_opts = {
         "outtmpl": output_path,
@@ -69,7 +72,7 @@ def _download_audio_only_optimized(url: str) -> tuple[str, str]:
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
-            filename = os.path.join("downloads", f"{safe_title}.mp3")
+            filename = os.path.join(DOWNLOAD_DIR, f"{safe_title}.mp3")
             return filename, title
     except Exception as e:
         raise ValueError(f"No se pudo descargar el audio: {str(e)}") from e
@@ -79,7 +82,7 @@ def _download_video_optimized(url: str) -> tuple[str, str]:
     title = info.get("title", "video")
     safe_title = _sanitize_filename(title)
     
-    final_output = os.path.join("downloads", f"{safe_title}.mp4")
+    final_output = os.path.join(DOWNLOAD_DIR, f"{safe_title}.mp4")
     
     has_format_22 = any(
         f.get('format_id') == '22' 
@@ -127,7 +130,7 @@ def _download_video_optimized(url: str) -> tuple[str, str]:
         return _download_video_fallback(url, safe_title, title)
 
 def _download_video_fallback(url: str, safe_title: str, title: str) -> tuple[str, str]:
-    final_output = os.path.join("downloads", f"{safe_title}.mp4")
+    final_output = os.path.join(DOWNLOAD_DIR, f"{safe_title}.mp4")
     
     ydl_opts = {
         "outtmpl": final_output,
